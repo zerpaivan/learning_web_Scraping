@@ -15,17 +15,18 @@ soup = BeautifulSoup(html.read(), 'html.parser')
 datos = soup.find('div', {'class':'navigation__overflow'}).find_all('li')
 
 categoria_list = []
-for data in datos:
-    categoria = data.find('a', href=re.compile(r'^/[\w-]*/c/\d+$'))
-    if categoria is not None:
-        categoria_list.append(categoria)
-# print(categoria_list)
-
 sub_categoria_list = []
 for data in datos:
+    categoria = data.find('a', href=re.compile(r'^/[\w%-]*/c/\d+$'))
     sub_categoria = data.find_all('div', {'class':'title'})
+
+    if categoria is not None:
+        categoria_list.append(categoria)
+    
     if sub_categoria:
         sub_categoria_list.append(sub_categoria)
+# print(categoria_list)
+
 # print('SUB CATEGORIAS',sub_categoria_list)
 
 for n, i in enumerate(categoria_list):
